@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(0, 0%, 96.5%);
+  --foreground: hsl(0, 0%, 9%);
+  --muted: hsl(0, 0%, 95.9%);
+  --muted-foreground: hsl(0, 0%, 45%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(0, 0%, 9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(0, 0%, 9%);
+  --border: hsl(0, 0%, 90%);
+  --input: hsl(0, 0%, 90%);
+  --primary: hsl(0, 93%, 51%);
+  --primary-foreground: hsl(0, 0%, 96.5%);
+  --secondary: hsl(0, 0%, 95.9%);
+  --secondary-foreground: hsl(0, 0%, 10%);
+  --accent: hsl(0, 93%, 51%);
+  --accent-foreground: hsl(0, 0%, 96.5%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(0, 0%, 9%);
+  --radius: 0.5rem;
+
+  /* Custom Brand Schema Colors */
+  --brand-bg: hsl(0, 0%, 96.5%);
+  --brand-text: hsl(0, 0%, 9%);
+  --brand-accent: hsl(0, 93%, 51%);
+}
+
+.dark {
+  --background: hsl(0, 0%, 9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(0, 0%, 15.9%);
+  --muted-foreground: hsl(0, 0%, 64.9%);
+  --popover: hsl(0, 0%, 9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(0, 0%, 9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(0, 0%, 15.9%);
+  --input: hsl(0, 0%, 15.9%);
+  --primary: hsl(0, 93%, 51%);
+  --primary-foreground: hsl(0, 0%, 9%);
+  --secondary: hsl(0, 0%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(0, 93%, 51%);
+  --accent-foreground: hsl(0, 0%, 9%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(0, 0%, 83.9%);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background-color: var(--brand-bg);
+    color: var(--brand-text);
+    font-family: 'JetBrains Mono', 'Space Mono', monospace;
+  }
+
+  .font-mono {
+    font-family: 'Space Mono', 'JetBrains Mono', monospace;
+  }
+
+  .font-sans {
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .brand-bg { background-color: var(--brand-bg); }
+  .brand-text { color: var(--brand-text); }
+  .brand-accent { color: var(--brand-accent); }
+  .brand-accent-bg { background-color: var(--brand-accent); }
+}
+
+/* Custom Brand Schema Animations */
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px hsla(0, 93%, 51%, 0.2); }
+  100% { box-shadow: 0 0 20px hsla(0, 93%, 51%, 0.4), 0 0 40px hsla(0, 93%, 51%, 0.1); }
+}
+
+@keyframes schema-line {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(1.05); }
+}
+
+@keyframes redacted-scan {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom Components */
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite alternate;
+}
+
+.schema-line {
+  animation: schema-line 3s ease-in-out infinite;
+}
+
+.redacted-block {
+  background: linear-gradient(90deg, var(--brand-text) 0%, var(--brand-text) 100%);
+  color: var(--brand-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.redacted-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, hsla(0, 93%, 51%, 0.3), transparent);
+  animation: redacted-scan 3s ease-in-out infinite;
+}
+
+.light-gradient {
+  background: linear-gradient(135deg, hsla(0, 93%, 51%, 0.05) 0%, transparent 50%, hsla(0, 93%, 51%, 0.02) 100%);
+}
+
+.schema-marker::before {
+  content: ':';
+  color: var(--brand-accent);
+  font-weight: 700;
+  margin-right: 0.5rem;
+}
+
+.tactical-grid {
+  background-image: 
+    linear-gradient(hsla(0, 0%, 9%, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, hsla(0, 0%, 9%, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+/* Light-based hierarchy effects */
+.light-focus {
+  box-shadow: 0 0 0 1px hsla(0, 93%, 51%, 0.1), 0 0 10px hsla(0, 93%, 51%, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.light-focus:hover {
+  box-shadow: 0 0 0 1px hsla(0, 93%, 51%, 0.3), 0 0 20px hsla(0, 93%, 51%, 0.1);
+}
+
+.light-depth {
+  background: linear-gradient(135deg, hsla(0, 0%, 100%, 0.8) 0%, hsla(0, 0%, 100%, 0.4) 100%);
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.1);
+}
+
+.light-emphasis {
+  background: linear-gradient(135deg, hsla(0, 93%, 51%, 0.1) 0%, transparent 100%);
+  border-left: 2px solid var(--brand-accent);
+}
